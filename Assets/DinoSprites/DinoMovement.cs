@@ -8,6 +8,7 @@ public class DinoMovement : MonoBehaviour
     private Rigidbody2D body;
     private Animator anim;
     private bool touchingGround;
+    public AudioSource audioSource;
 
     private void Awake(){
         body = GetComponent<Rigidbody2D>();
@@ -36,6 +37,10 @@ public class DinoMovement : MonoBehaviour
 
 
         if(Input.GetKey(KeyCode.UpArrow) && touchingGround){
+            if (audioSource != null){
+                audioSource.time = 0.0f;
+                audioSource.Play();
+            }
             Jump();
         }
 

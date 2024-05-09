@@ -11,19 +11,32 @@ public class TakeAPicture : MonoBehaviour
     public GameObject message;
     public GameObject success;
     public string NextScene;
+
+    // Add an AudioSource component to play sound
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    void Update(){
-        if (Input.GetKeyDown(KeyCode.Space)){
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Play sound before flash effect
+            if (audioSource != null){
+                audioSource.time = 0.0f;
+                audioSource.Play();
+            }
             FlashScreen();
-            if (IsTouching(object1, object2)){
+            if (IsTouching(object1, object2))
+            {
                 SceneManager.LoadScene(NextScene);
             }
-            else{
+            else
+            {
                 NotQuite();
             }
 
@@ -32,7 +45,6 @@ public class TakeAPicture : MonoBehaviour
 
     bool IsTouching(GameObject obj1, GameObject obj2)
     {
-        // Check if collider attached to obj1 is touching collider attached to obj2
         return obj1.GetComponent<Collider2D>().IsTouching(obj2.GetComponent<Collider2D>());
     }
 
@@ -57,6 +69,5 @@ public class TakeAPicture : MonoBehaviour
     {
         message.SetActive(false);
     }
-
 
 }
